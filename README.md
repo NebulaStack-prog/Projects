@@ -16,7 +16,11 @@ This repository contains the official NS's projects.
 
 ### (4) Friday 13 – II:
 - Program:
-- Image: 
+- Image:
+
+### (5) Hunter Mike:
+- Program:
+- Image:
   
 ## About NebulaStack
 NebulaStack is a personal IT ecosystem built around Telegram, GitHub and project activities.

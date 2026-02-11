@@ -21,6 +21,14 @@ This repository contains the official NS's projects.
 ### (5) Hunter Mike:
 - Program:
 - Image:
-  
+
+### (6) The One:
+- Program:
+- Image:
+
+### (7) Tetris:
+- Program:
+- Image:
+
 ## About NebulaStack
 NebulaStack is a personal IT ecosystem built around Telegram, GitHub and project activities.

@@ -1,0 +1,66 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FoodSpawner : MonoBehaviour
+{
+    public GameObject foodPrefab;
+    public int gridWidth = 10;
+    public int gridHeight = 10;
+    public int maxSpawnAttempts = 100;
+    
+    private SnakeController snake;
+    
+    void Start()
+    {
+        snake = FindObjectOfType<SnakeController>();
+        SpawnFood();
+    }
+    
+    public void SpawnFood()
+    {
+        bool positionFound = false;
+        int attempts = 0;
+        
+        while (!positionFound && attempts < maxSpawnAttempts)
+        {
+            attempts++;
+            
+            int x = Random.Range(-gridWidth, gridWidth + 1);
+            int y = Random.Range(-gridHeight, gridHeight + 1);
+            Vector2 spawnPos = new Vector2(x, y);
+            
+            if (!IsPositionOccupied(spawnPos))
+            {
+                Instantiate(foodPrefab, spawnPos, Quaternion.identity);
+                positionFound = true;
+            }
+        }
+        
+        if (!positionFound)
+        {
+            Debug.Log("Поздравляю! Ты заполнил всё поле! 🎉");
+        }
+    }
+    
+    bool IsPositionOccupied(Vector2 position)
+    {
+        if (snake != null)
+        {
+            foreach (Transform segment in snake.GetComponentsInChildren<Transform>())
+            {
+                if (segment != null && (Vector2)segment.position == position)
+                    return true;
+            }
+        }
+        
+        GameObject[] foods = GameObject.FindGameObjectsWithTag("Food");
+        foreach (GameObject food in foods)
+        {
+            if ((Vector2)food.transform.position == position)
+                return true;
+        }
+        
+        return false;
+    }
+}

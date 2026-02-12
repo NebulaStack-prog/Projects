@@ -3,7 +3,7 @@ This repository contains the official NS's projects.
 
 ## Project codes:
 ### (1) Calculator v.1: 
-- Program: [Code](Calculator_v.1.py)
+- Program: [Calc Code](Calculator_v.1.py)
 - Image: [Picture](Picture_1.jpg)
 
 ### (2) Friday 13 – I:

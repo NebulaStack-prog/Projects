@@ -7,9 +7,9 @@ This repository contains the official NS's projects.
 - Image: [Picture](Picture_1.jpg)
 
 ### (2) Friday 13 – I:
-- Program 1:
-- Program 2: 
-- Image:
+- Program 1: [Snake Code](SnakeController.cs)
+- Program 2: [Food Code](FoodSpawner.cs)
+- Image: [Picture](Picture_2.jpg)
 
 ### (3) Calculator v.2:
 - Program:

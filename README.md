@@ -7,7 +7,8 @@ This repository contains the official NS's projects.
 - Image: [Picture](Picture_1.jpg)
 
 ### (2) Friday 13 – I:
-- Program:
+- Program 1:
+- Program 2: 
 - Image:
 
 ### (3) Calculator v.2:

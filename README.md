@@ -4,7 +4,7 @@ This repository contains the official NS's projects.
 ## About Projects of Phase I:
 ### (1) Calculator v.1: 
 - Program: [Calc Code](Calculator_v.1.py)
-- Image: [Picture](Picture_1.jpg)
+- Images: [Pictures](Picture_1.jpg)
 
 ### (2) Friday 13 – I:
 - Image: [Picture](Picture_2.jpg)

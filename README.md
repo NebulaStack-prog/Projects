@@ -25,7 +25,8 @@ This repository contains the official NS's projects.
 
 ### (6) Tetris:
 - Program: [Tetris Code](Tetris.py)
-- Image:
+- Image 1: [Picture 1](Picture_5.png)
+- Image 2: [Picture 2](Picture 6.png)
 
 ## About Projects of Phase II:
 ### (1) Voice Assistant:

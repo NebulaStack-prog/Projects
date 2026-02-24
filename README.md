@@ -24,7 +24,7 @@ This repository contains the official NS's projects.
 - Image:
 
 ### (6) Tetris:
-- Program:
+- Program: [Tetris Code](Tetris.py)
 - Image:
 
 ## About Projects of Phase II:

@@ -48,5 +48,5 @@ This repository contains the official NS's projects.
 - Program:
 - Image:
 
-## About NebulaStack
+## About NebulaStack.
 NebulaStack is a personal IT ecosystem built around Telegram, GitHub and project activities.

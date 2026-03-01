@@ -55,7 +55,7 @@ class Calculator:
         self.current_function = None
         self.input_fields = []
         self.history = []
-        self.result_var = tk.StringVar(value="⚡ Выберите операцию")
+        self.result_var = tk.StringVar(value="ВЫБЕРИТЕ ОПЕРАЦИЮ И ЗАПОЛНИТЕ СТРОКИ")
         self.expression_var = tk.StringVar(value="")
 
     def create_layout(self):
@@ -109,7 +109,7 @@ class Calculator:
         controls.pack(side='right', fill='y')
 
         self.create_small_button(controls, "⟳ Сброс", self.reset_all, self.colors['surface'])
-        self.create_small_button(controls, "📋 История", self.show_history_dialog, self.colors['surface'])
+        self.create_small_button(controls, "История", self.show_history_dialog, self.colors['surface'])
 
     def create_small_button(self, parent, text, command, bg):
         btn = tk.Button(
@@ -135,7 +135,7 @@ class Calculator:
 
         tk.Label(
             panel,
-            text="🛠 ОПЕРАЦИИ",
+            text="",
             font=self.font_button,
             bg=self.colors['surface'],
             fg=self.colors['text_light'],
@@ -143,7 +143,7 @@ class Calculator:
         ).pack(fill='x', padx=20, pady=(20, 10))
 
         categories = [
-            ("#3b82f6", "🧮 Арифметика", [
+            ("#3b82f6", "АРИФМЕТИКА", [
                 ("a + b", self.add, 2),
                 ("a - b", self.subtract, 2),
                 ("a × b", self.multiply, 2),
@@ -151,7 +151,7 @@ class Calculator:
                 ("aᵇ", self.power, 2),
                 ("√a", self.sqrt, 1)
             ]),
-            ("#8b5cf6", "🔢 Числа", [
+            ("#8b5cf6", "ЧИСЛА", [
                 ("a!", self.factorial, 1),
                 ("a‼", self.double_fact, 1),
                 ("Простое?", self.is_prime, 1),
@@ -159,7 +159,7 @@ class Calculator:
                 ("НОД", self.gcd, 2),
                 ("НОК", self.lcm, 2)
             ]),
-            ("#10b981", "⊿ Геометрия", [
+            ("#10b981", "ГЕОМЕТРИЯ", [
                 ("sin", self.sin, 1),
                 ("cos", self.cos, 1),
                 ("tg", self.tan, 1),
@@ -167,13 +167,13 @@ class Calculator:
                 ("° → rad", self.deg_to_rad, 1),
                 ("rad → °", self.rad_to_deg, 1)
             ]),
-            ("#f59e0b", "📈 Алгебра", [
+            ("#f59e0b", "АЛГЕБРА", [
                 ("ax + b = 0", self.solve_linear, 2),
                 ("ax² + bx + c = 0", self.solve_quadratic, 3),
                 ("logₐb", self.logarithm, 2),
-                ("|x| Абсолютное", self.abs_val, 1),
-                ("⌊x⌋ Пол", self.floor, 1),
-                ("⌈x⌉ Потолок", self.ceil, 1)
+                ("|x|", self.abs, 1),
+                ("{x}", self.fractional, 1),
+                ("[x]", self.integer, 1)
             ])
         ]
 
@@ -184,7 +184,7 @@ class Calculator:
 
     def create_category(self, parent, color, title, functions):
         frame = tk.Frame(parent, bg=self.colors['surface'])
-        frame.pack(fill='x', padx=20, pady=(0, 15))
+        frame.pack(fill='x', padx=10, pady=(0, 7.5))
 
         tk.Label(
             frame,
@@ -193,7 +193,7 @@ class Calculator:
             bg=self.colors['surface'],
             fg=color,
             anchor='w'
-        ).pack(fill='x', pady=(0, 10))
+        ).pack(fill='x', pady=(0, 1))
 
         buttons_frame = tk.Frame(frame, bg=self.colors['surface'])
         buttons_frame.pack(fill='x')
@@ -208,10 +208,10 @@ class Calculator:
                 font=self.font_button,
                 relief='flat',
                 bd=1,
-                padx=15,
-                pady=10,
+                padx=7.5,
+                pady=5,
                 cursor='hand2',
-                width=12
+                width=6
             )
             btn.grid(row=i // 3, column=i % 3, padx=3, pady=3, sticky='ew')
 
@@ -261,7 +261,7 @@ class Calculator:
 
         self.status_label = tk.Label(
             input_card,
-            text="⏳ Выберите операцию",
+            text="Строки для ввода переменных",
             font=self.font_subtitle,
             bg=self.colors['card'],
             fg=self.colors['text_light'],
@@ -302,7 +302,7 @@ class Calculator:
 
         tk.Button(
             controls,
-            text="🚀 Вычислить",
+            text="Вычислить",
             command=self.calculate,
             bg=self.colors['primary'],
             fg='white',
@@ -315,7 +315,7 @@ class Calculator:
 
         tk.Button(
             controls,
-            text="📋 Копировать",
+            text="Копировать",
             command=self.copy_result,
             bg=self.colors['surface'],
             fg=self.colors['text'],
@@ -335,9 +335,6 @@ class Calculator:
 
         self.input_fields = []
         self.expression_var.set("")
-
-        func_name = func.__name__.replace('_', ' ').title()
-        self.status_label.config(text=f"▶ {func_name} — введите {num_args} значение(я)")
 
         for i in range(num_args):
             field_frame = tk.Frame(self.input_container, bg=self.colors['card'])
@@ -425,15 +422,15 @@ class Calculator:
                 else:
                     result = round(result, 10)
 
-            self.result_var.set(f"✅ {result}")
+            self.result_var.set(f"{result}")
             self.add_to_history(result)
 
         except ZeroDivisionError:
-            self.result_var.set("❌ Деление на ноль")
+            self.result_var.set("ERROR: Деление на ноль")
         except ValueError as e:
-            self.result_var.set(f"❌ Ошибка: {str(e)}")
+            self.result_var.set(f"ERROR: {str(e)}")
         except Exception as e:
-            self.result_var.set(f"❌ Ошибка вычисления")
+            self.result_var.set(f"ERROR: Ошибка вычисления")
 
     def add_to_history(self, result):
         if self.current_function:
@@ -480,7 +477,7 @@ class Calculator:
 
         tk.Label(
             header,
-            text="📜 История",
+            text="ИСТОРИЯ",
             font=self.font_title,
             bg=self.colors['surface'],
             fg=self.colors['text']
@@ -554,17 +551,16 @@ class Calculator:
 
     def copy_result(self):
         result = self.result_var.get()
-        if result and result != "⚡ Выберите операцию":
+        if result and result != "ВЫБЕРИТЕ ОПЕРАЦИЮ И ЗАПОЛНИТЕ СТРОКИ":
             self.root.clipboard_clear()
-            self.root.clipboard_append(result.replace('✅ ', '').replace('❌ ', ''))
-            self.result_var.set("📋 Скопировано!")
+            self.result_var.set("Скопировано!")
             self.root.after(1000, lambda: self.result_var.set(result))
 
     def reset_all(self):
         self.current_function = None
         self.expression_var.set("")
-        self.result_var.set("⚡ Выберите операцию")
-        self.status_label.config(text="⏳ Выберите операцию")
+        self.result_var.set("ВЫБЕРИТЕ ОПЕРАЦИЮ И ЗАПОЛНИТЕ СТРОКИ")
+        self.status_label.config(text="Строки для ввода переменных")
 
         for widget in self.input_container.winfo_children():
             widget.destroy()
@@ -626,16 +622,18 @@ class Calculator:
 
     def is_prime(self, n):
         n = int(n)
-        if n < 2:
-            return False
+        if n < 1:
+            return "Функция работает только на натуральных числах!"
+        if n == 1:
+            return "Единица"
         if n == 2:
-            return True
+            return "Простое"
         if n % 2 == 0:
-            return False
+            return "Составное"
         for i in range(3, int(math.sqrt(n)) + 1, 2):
             if n % i == 0:
-                return False
-        return True
+                return "Составное"
+        return "Простое"
 
     def prime_factors(self, n):
         n = int(n)
@@ -678,28 +676,28 @@ class Calculator:
             return 0
         return abs(a * b) // self.gcd(a, b)
 
-    def sin(self, x):
-        return math.sin(math.radians(x))
+    def sin(self, a):
+        return math.sin(math.radians(a))
 
-    def cos(self, x):
-        return math.cos(math.radians(x))
+    def cos(self, a):
+        return math.cos(math.radians(a))
 
-    def tan(self, x):
-        if x - 90 % 180 == 0:
+    def tan(self, a):
+        if a - 90 % 180 == 0:
             raise ZeroDivisionError("Деление на ноль")
 
-        if x % 180 == 0:
+        if a % 180 == 0:
             return 0
         else:
-            return math.tan(math.radians(x))
+            return math.tan(math.radians(a))
 
-    def ctg(self, x):
-        if x % 180 == 0:
+    def ctg(self, a):
+        if a % 180 == 0:
             raise ZeroDivisionError("Деление на ноль")
-        if x - 90 % 180 == 0:
+        if a - 90 % 180 == 0:
             return 0
         else:
-            return 1 / math.tan(math.radians(x))
+            return 1 / math.tan(math.radians(a))
 
     def deg_to_rad(self, deg):
         return math.radians(deg)
@@ -731,22 +729,35 @@ class Calculator:
             imag = math.sqrt(-D) / (2 * a)
             return f"x₁ = {real} + {imag}i, x₂ = {real} - {imag}i"
 
-    def logarithm(self, base, x):
+    def logarithm(self, base, a):
         if base <= 0 or base == 1:
             raise ValueError("Основание должно быть >0 и ≠1")
-        if x <= 0:
+        if a <= 0:
             raise ValueError("Аргумент должен быть >0")
-        return math.log(x, base)
+        return math.log(a, base)
 
-    def abs_val(self, x):
-        return abs(x)
+    def abs(self, a):
+        return abs(a)
 
-    def floor(self, x):
-        return math.floor(x)
+    def integer(self, a):
+        if a >= 0:
+            return int(a)
+        else:
+            if a - int(a) < 0:
+                return int(a) - 1
 
-    def ceil(self, x):
-        return math.ceil(x)
+            else:
+                return int(a)
 
+    def fractional(self, a):
+        if a >= 0:
+            return a - int(a)
+        else:
+            if a - int(a) < 0:
+                return a - (int(a) - 1)
+
+            else:
+                return 0
 
 if __name__ == "__main__":
     root = tk.Tk()

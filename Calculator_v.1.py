@@ -135,7 +135,7 @@ class Calculator:
 
         tk.Label(
             panel,
-            text="",
+            text="ОПЕРАЦИИ",
             font=self.font_button,
             bg=self.colors['surface'],
             fg=self.colors['text_light'],
@@ -763,3 +763,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = Calculator(root)
     root.mainloop()
+

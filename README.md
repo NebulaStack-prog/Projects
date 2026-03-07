@@ -27,6 +27,10 @@ This repository contains the official NS's projects.
 - Program: [Tetris Code](Tetris.py)
 - Image: [Picture](Picture_5.png)
 
+### (7) Calculator v.3:
+- Program:
+- Image:
+
 ## About Projects of Phase II:
 ### (1) Black Hole:
 - Program:

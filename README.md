@@ -12,7 +12,7 @@ This repository contains the official NS's projects.
 - Fool File: [Project](...)
 
 ### (3) Calculator v.2:
-- Program:
+- Program: [Calc_Code](Calculator_v.2.py)
 - Image:
 
 ### (4) Friday 13 – II:

@@ -32,23 +32,23 @@ This repository contains the official NS's projects.
 - Image:
 
 ## About Projects of Phase II:
-### (1) Black Hole:
+### (8) Black Hole:
 - Program:
 - Image:
   
-### (2) Voice Assistant:
+### (9) Voice Assistant:
 - Program:
 - Image:
   
-### (3) NebulaAI:
+### (10) NebulaAI:
 - Program:
 - Image:
 
-### (4) The One:
+### (11) The One:
 - Program:
 - Image:
 
-### (5) Friday 13 – III:
+### (12) Friday 13 – III:
 - Program:
 - Image:
 

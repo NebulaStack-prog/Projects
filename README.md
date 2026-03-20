@@ -45,8 +45,8 @@ This repository contains the official NS's projects.
 - Image:
 
 ### (11) Filer:
-- 🇷🇺 Russian version:
-- 🇺🇸 English version:
+- Program:
+- Image;
 
 ### (12) The One:
 - Program:

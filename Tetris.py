@@ -13,7 +13,7 @@ screen_y = 500
 score = 0
 font = pygame.font.Font(None, 32)
 
-screen = pygame.display.set_mode((screen_x, screen_y))
+screen = pygame.display.set_mode((screen_x, screen_y)) 
 pygame.display.set_caption("Tetris")
 clock = pygame.time.Clock()
 
@@ -70,6 +70,18 @@ count = 0
 game = True
 rotate = False
 
+def CanMove(det_choice, dx, dy):
+    for i in range(4):
+        x = int((det_choice[i].x + dx * cell_x) // cell_x)
+        y = int((det_choice[i].y + dy * cell_y) // cell_y)
+
+        if x < 0 or x >= columns or y > strings:
+            return False
+
+        if y >= 0 and grid[x][y][0] == 0:
+            return False
+    return True
+
 while game:
    delta_x = 0
    delta_y = 1
@@ -106,7 +118,7 @@ while game:
                x = int(det_choice[i].x // cell_x)
                y = int(det_choice[i].y // cell_y)
                grid[x][y][0] = 0
-               grid[x][y][2] = pygame.Color(45, 109, 234, 100)
+               grid[x][y][2] = color
            detail.x = 0
            detail.y = 0
 
@@ -136,14 +148,19 @@ while game:
                det_choice = copy.deepcopy(random.choice(det))
                color = random.choice(colors)
 
-   for i in range(4):
-       det_choice[i].x += delta_x * cell_x
+   if CanMove(det_choice, delta_x, 0):
+       for i in range(4):
+           det_choice[i].x += delta_x * cell_x
 
    count += fps
 
    if count > 30 * fps:
-       for i in range(4):
-           det_choice[i].y += delta_y * cell_y
+       if CanMove(det_choice, 0, 1):
+           for i in range(4):
+               det_choice[i].y += delta_y * cell_y
+       else:
+           delta_y = 0
+
        count = 0
 
    for i in range(4):
@@ -153,11 +170,25 @@ while game:
 
    C = det_choice[2]
    if rotate:
+       temp = copy.deepcopy(det_choice)
+
        for i in range(4):
-           x = det_choice[i].y - C.y
-           y = det_choice[i].x - C.x
-           det_choice[i].x = C.x - x
-           det_choice[i].y = C.y + y
+           x = temp[i].y - C.y
+           y = temp[i].x - C.x
+           temp[i].x = C.x - x
+           temp[i].y = C.y + y
+
+       shifts = [0, -1, 1, -2, 2]
+       rotated = False
+
+       for shift in shifts:
+           if CanMove(temp, shift, 0):
+               for i in range(4):
+                   temp[i].x += shift * cell_x
+               det_choice = temp
+               rotated = True
+               break
+
        rotate = False
 
    for j in range(strings - 1, -1, -1):
@@ -171,9 +202,10 @@ while game:
            score += 3
            for l in range(columns):
                grid[l][0][0] = 1
-           for k in range(j, -1, -1):
+           for k in range(j, 0, -1):
                for l in range(columns):
                    grid[l][k][0] = grid[l][k - 1][0]
+                   grid[l][k][2] = grid[l][k - 1][2]
 
    draw(score)
 

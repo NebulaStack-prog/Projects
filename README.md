@@ -16,7 +16,7 @@ This repository contains the official NS's projects.
 - Image:
 
 ### (4) Friday 13 – II:
-- Program: [Friday 13 - II](Friday13_II.c3p)
+- Fool File: [Friday 13 - II](Friday13_II.c3p)
 - Image:
 
 ### (5) Diving Cats:
@@ -24,7 +24,7 @@ This repository contains the official NS's projects.
 - Image:
 
 ### (6) Hunter Mike:
-- Program:
+- Fool File: [Hunter Mike](HunterMike.c3p)
 - Image:
 
 ### (7) Tetris:

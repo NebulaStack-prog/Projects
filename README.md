@@ -19,40 +19,44 @@ This repository contains the official NS's projects.
 - Program:
 - Image:
 
-### (5) Hunter Mike:
+### (5) Diving Cats:
 - Program:
 - Image:
 
-### (6) Tetris:
+### (6) Hunter Mike:
+- Program:
+- Image:
+
+### (7) Tetris:
 - Program: [Tetris Code](Tetris.py)
 - Image: [Picture](Picture_5.png)
 
-### (7) Calculator v.3:
+### (8) Calculator v.3:
 - Program:
 - Image:
 
 ## About Projects of Phase II:
-### (8) Black Hole:
+### (9) Black Hole:
 - Program:
 - Image:
   
-### (9) Voice Assistant:
+### (10) Voice Assistant:
 - Program:
 - Image:
   
-### (10) NebulaAI:
+### (11) NebulaAI:
 - Program:
 - Image:
 
-### (11) Filer:
+### (12) Filer:
 - Program:
 - Image;
 
-### (12) The One:
+### (13) The One:
 - Program:
 - Image:
 
-### (13) Friday 13 – III:
+### (14) Friday 13 – III:
 - Program:
 - Image:
 

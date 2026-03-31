@@ -1512,7 +1512,7 @@ class Calculator:
         f = (X ** 2 + Y ** 2 - 1) ** 3 - X ** 2 * Y ** 3
 
         plt.figure(figsize=(10, 10))
-        plt.contour(X, Y, f, levels=[0], colors='#ff69b4', linewidth=10, label=Сердце)
+        plt.contour(X, Y, f, levels=[0], colors='#ff69b4', linewidth=10, label="Сердце")
 
         plt.axhline(y=0, color='black', linestyle='-', linewidth=2.5, label='Ось Х')
         plt.axvline(x=0, color='black', linestyle='-', linewidth=2.5, label='Ось Y')

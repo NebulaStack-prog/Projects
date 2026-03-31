@@ -13,7 +13,11 @@ This repository contains the official NS's projects.
 
 ### (3) Calculator v.2:
 - Program: [Calculator v.2](Calculator_v.2.py)
-- Image:
+- Image 1: [Picture 1](PictureCalc_2_1.png)
+- Image 2: [Picture 2](PictureCalc_2_2.png)
+- Image 3: [Picture 3](PictureCalc_2_3.png)
+- Image 4: [Picture 4](PictureCalc_2_4.png)
+- Image 5: [Picture 5](PictureCalc_2_5.png)
 
 ### (4) Friday 13 – II:
 - Fool File: [Friday 13 - II](Friday13_II.c3p)

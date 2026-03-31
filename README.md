@@ -27,6 +27,7 @@ This repository contains the official NS's projects.
 - Fool File: [Diving Cats](DiverGame.c3p)
 - Image 1: [Picture 1](PictureDive1.png)
 - Image 2: [Picture 2](PictureDive2.png)
+- Image 3: [Picture 3](PictureDive3.png)
 
 ### (6) Hunter Mike:
 - Fool File: [Hunter Mike](HunterMike.c3p)

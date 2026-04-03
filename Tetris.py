@@ -7,8 +7,8 @@ pygame.init()
 columns = 11
 strings = 21
 
-screen_x = 250
-screen_y = 500
+screen_x = 300
+screen_y = 650
 
 score = 0
 best_score = 0
@@ -23,19 +23,52 @@ clock = pygame.time.Clock()
 
 state = "menu"
 
+next_det_choice = None
+
 play_button = pygame.Rect(screen_x // 2 - 50, screen_y // 2 - 40, 100, 40)
 help_button = pygame.Rect(screen_x // 2 - 50, screen_y // 2 + 10, 100, 40)
 back_button = pygame.Rect(screen_x // 2 - 50, screen_y // 2 + 60, 100, 40)
 
+game_height = 600
+
 cell_x = screen_x / (columns - 1)
-cell_y = screen_y / (strings - 1)
+cell_y = game_height / (strings - 1)
 
-def draw(score, best_score):
-    text = font.render(f"Score:{score}", True, (0, 0, 0))
-    screen.blit(text, (screen_x - 120, 10))
+def draw_panel(score, best_score):
 
-    best_text = font.render(f"Best:{best_score}", True, (0, 0, 0))
-    screen.blit(best_text, (screen_x - 120, 35))
+    pygame.draw.rect(screen, (50, 50, 50), (0, 0, screen_x, 50))
+    pygame.draw.rect(screen, (100, 100, 100), (0, 0, screen_x, 50), 2)
+
+    score_text = font.render(f"Score: {score}", True, (255, 255, 255))
+    screen.blit(score_text, (10, 3))
+
+    best_text = font.render(f"Best: {best_score}", True, (255, 215, 0))
+    screen.blit(best_text, (10, 25))
+
+    next_text = font.render("Next:", True, (255, 255, 255))
+    screen.blit(next_text, (screen_x - 150, 15))
+
+    preview_rect = pygame.Rect(screen_x - 90, 8, 80, 35)
+    pygame.draw.rect(screen, (30, 30, 30), preview_rect)
+    pygame.draw.rect(screen, (100, 100, 100), preview_rect, 1)
+
+    if next_det_choice:
+        min_x = min(rect.x for rect in next_det_choice)
+        min_y = min(rect.y for rect in next_det_choice)
+
+        preview_start_x = screen_x - 70
+        preview_start_y = 15
+
+        size = 11
+
+        for rect in next_det_choice:
+            rel_x = (rect.x - min_x) // cell_x
+            rel_y = (rect.y - min_y) // cell_y
+
+            cell_rect = pygame.Rect(preview_start_x + rel_x * size, preview_start_y + rel_y * size, size - 1, size - 1)
+
+            pygame.draw.rect(screen, next_color, cell_rect)
+            pygame.draw.rect(screen, (200, 200, 200), cell_rect, 1)
 
 def save_best_score(score, best_score):
     if score > best_score:
@@ -78,6 +111,11 @@ def draw_menu():
     best_rect = best_text.get_rect(center=(screen_x // 2, screen_y - 50))
     screen.blit(best_text, best_rect)
 
+def draw_cell(x, y, cell_color):
+    rect = pygame.Rect(x, y + 50, cell_x, cell_y)
+    pygame.draw.rect(screen, cell_color, rect)
+    pygame.draw.rect(screen, (0, 0, 0), rect, 1)
+
 def draw_help():
     screen.fill(pygame.Color(222, 248, 116, 100))
 
@@ -109,8 +147,27 @@ def draw_help():
     back_text_rect = back_text.get_rect(center=back_button.center)
     screen.blit(back_text, back_text_rect)
 
+
+def get_color(figure_index):
+    figure_colors = [
+        pygame.Color(255, 0, 0),
+        pygame.Color(255, 255, 0),
+        pygame.Color(255, 128, 0),
+        pygame.Color(0, 255, 0),
+        pygame.Color(0, 255, 255),
+        pygame.Color(255, 0, 255),
+        pygame.Color(0, 0, 255)
+    ]
+    return figure_colors[figure_index % len(figure_colors)]
+
+def get_next_figure():
+    figure_index = random.randint(0, len(det) - 1)
+    figure = copy.deepcopy(det[figure_index])
+    color = get_color(figure_index)
+    return figure, color, figure_index
+
 def reset_game():
-    global grid, score, det_choice, color, count, best_score
+    global grid, score, det_choice, color, count, best_score, next_det_choice, next_color, next_figure_index, figure_index
 
     if score > best_score:
         best_score = score
@@ -123,8 +180,8 @@ def reset_game():
 
     score = 0
 
-    det_choice = copy.deepcopy(random.choice(det))
-    color = random.choice(colors)
+    det_choice, color, figure_index = get_next_figure()
+    next_det_choice, next_color, next_figure_index = get_next_figure()
     count = 0
 
 fps = 60
@@ -132,43 +189,42 @@ fps = 60
 grid = []
 
 for i in range(columns):
-   grid.append([])
-   for j in range(strings):
-       grid[i].append([1])
+    grid.append([])
+    for j in range(strings):
+        grid[i].append([1])
 
 for i in range(columns):
-   for j in range(strings):
-       grid[i][j].append(pygame.Rect(i * cell_x, j * cell_y, cell_x, cell_y))
-       grid[i][j].append(pygame.Color("Gray"))
-
-colors = [
-    pygame.Color(255, 0, 0),
-    pygame.Color(255, 255, 0),
-    pygame.Color(255, 128, 0),
-    pygame.Color(0, 255, 0),
-    pygame.Color(0, 255, 255),
-    pygame.Color(255, 0, 255),
-]
+    for j in range(strings):
+        grid[i][j].append(pygame.Rect(i * cell_x, j * cell_y, cell_x, cell_y))
+        grid[i][j].append(pygame.Color("Gray"))
 
 details = [
-   [[-2, 0], [-1, 0], [0, 0], [1, 0]],
-   [[-1, 1], [-1, 0], [0, 0], [1, 0]],
-   [[1, 1], [-1, 0], [0, 0], [1, 0]],
-   [[-1, 1], [0, 1], [0, 0], [-1, 0]],
-   [[1, 0], [1, 1], [0, 0], [-1, 0]],
-   [[0, 1], [-1, 0], [0, 0], [1, 0]],
-   [[-1, 1], [0, 1], [0, 0], [1, 0]],
+    [[-2, 0], [-1, 0], [0, 0], [1, 0]],
+    [[-1, 1], [-1, 0], [0, 0], [1, 0]],
+    [[1, 1], [-1, 0], [0, 0], [1, 0]],
+    [[-1, 1], [0, 1], [0, 0], [-1, 0]],
+    [[-1, 0], [0, 0], [0, 1], [1, 1]],
+    [[0, 1], [-1, 0], [0, 0], [1, 0]],
+    [[-1, 1], [0, 1], [0, 0], [1, 0]],
 ]
 
 det = [[], [], [], [], [], [], []]
 
 for i in range(len(details)):
-   for j in range(4):
-       det[i].append(pygame.Rect(details[i][j][0] * cell_x + cell_x * (columns // 2), details[i][j][1] * cell_y, cell_x, cell_y))
+    for j in range(4):
+        det[i].append(
+            pygame.Rect(details[i][j][0] * cell_x + cell_x * (columns // 2), details[i][j][1] * cell_y, cell_x, cell_y))
 
 detail = pygame.Rect(0, 0, cell_x, cell_y)
 det_choice = copy.deepcopy(random.choice(det))
-color = random.choice(colors)
+color = random.choice([pygame.Color(255, 0, 0)])
+
+next_color = None
+
+figure_index = 0
+
+next_figure_index = 0
+
 count = 0
 game = True
 rotate = False
@@ -214,7 +270,7 @@ while game:
                 if event.button == 1:
                     mouse_pos = pygame.mouse.get_pos()
                     if back_button.collidepoint(mouse_pos):
-                     state = "menu"
+                        state = "menu"
         draw_help()
         pygame.display.flip()
         clock.tick(fps)
@@ -247,17 +303,19 @@ while game:
 
         for i in range(columns):
             for j in range(strings):
-                pygame.draw.rect(screen, grid[i][j][2], grid[i][j][1], grid[i][j][0])
+                if grid[i][j][0] == 0:
+                    draw_cell(grid[i][j][1].x, grid[i][j][1].y, grid[i][j][2])
+                else:
+                    rect = pygame.Rect(grid[i][j][1].x, grid[i][j][1].y + 50, cell_x, cell_y)
+                    pygame.draw.rect(screen, grid[i][j][2], rect, 1)
 
         if state != "game":
             continue
 
-
         for i in range(4):
             if ((det_choice[i].x + delta_x * cell_x < 0) or (det_choice[i].x + delta_x * cell_x >= screen_x)):
                 delta_x = 0
-            if ((det_choice[i].y + cell_y >= screen_y) or (
-                    grid[int(det_choice[i].x // cell_x)][int(det_choice[i].y // cell_y) + 1][0] == 0)):
+            if ((det_choice[i].y + cell_y >= game_height) or (grid[int(det_choice[i].x // cell_x)][int(det_choice[i].y // cell_y) + 1][0] == 0)):
                 delta_y = 0
                 for i in range(4):
                     x = int(det_choice[i].x // cell_x)
@@ -268,8 +326,11 @@ while game:
                 detail.x = 0
                 detail.y = 0
 
-                det_choice = copy.deepcopy(random.choice(det))
-                color = random.choice(colors)
+                det_choice = copy.deepcopy(next_det_choice)
+                color = next_color
+                figure_index = next_figure_index
+
+                next_det_choice, next_color, next_figure_index = get_next_figure()
 
                 top = False
                 for i in range(4):
@@ -301,9 +362,7 @@ while game:
             count = 0
 
         for i in range(4):
-            detail.x = det_choice[i].x
-            detail.y = det_choice[i].y
-            pygame.draw.rect(screen, color, detail)
+            draw_cell(det_choice[i].x, det_choice[i].y, color)
 
         C = det_choice[2]
         if rotate:
@@ -336,7 +395,7 @@ while game:
                 elif grid[i][j][0] == 1:
                     break
             if count_cells == (columns - 1):
-                score += 3
+                score += 10
                 if score > best_score:
                     best_score = score
                     save_best_score(score, best_score)
@@ -347,7 +406,7 @@ while game:
                         grid[l][k][0] = grid[l][k - 1][0]
                         grid[l][k][2] = grid[l][k - 1][2]
 
-        draw(score, best_score)
+        draw_panel(score, best_score)
 
     pygame.display.flip()
     clock.tick(fps)

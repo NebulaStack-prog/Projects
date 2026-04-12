@@ -104,7 +104,7 @@ class Calculator:
             },
             "light": {
                 'bg': '#f5f5f5',
-                'surface': 'ffffff',
+                'surface': '#ffffff',
                 'card': '#eaeaea',
                 'primary': '#7c3aed',
                 'secondary': '#06b6d4',

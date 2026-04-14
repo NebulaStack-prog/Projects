@@ -3,7 +3,7 @@ This repository contains the official NS's projects.
 
 ## About Projects of Phase I:
 ### (1) Calculator v.1: 
-- 💻 Program: [Calculator v.1](Calculator_v.1.py)
+- 💻 Source Code Snapshot: [Calculator v.1](Calculator_v.1.py)
 - 📷 Visual Representation: [Picture 1](PICTURE_2.png)
 - Image 2: [Picture 2](PICTURE_3.png)
 
@@ -12,7 +12,7 @@ This repository contains the official NS's projects.
 - 📷 Visual Representation: [Picture](Picture_2.jpg)
 
 ### (3) Calculator v.2:
-- 💻 Program: [Calculator v.2](Calculator_v.2.py)
+- 💻 Source Code Snapshot: [Calculator v.2](Calculator_v.2.py)
 - 📷 Visual Representation: [Picture 1](PictureCalc_2_1.png)
 - Image 2: [Picture 2](PictureCalc_2_2.png)
 - Image 3: [Picture 3](PictureCalc_2_3.png)
@@ -34,44 +34,44 @@ This repository contains the official NS's projects.
 - 📷 Visual Representation:
 
 ### (7) Tetris:
-- 💻 Program: [Tetris](Tetris.py)
+- 💻 Source Code Snapshot: [Tetris](Tetris.py)
 - 📷 Visual Representation: [Picture](Picture_5.png)
 
 ### (8) Calculator v.3:
-- 💻 Program: [Calculator v.3](Calculator_v.3.py)
+- 💻 Source Code Snapshot: [Calculator v.3](Calculator_v.3.py)
 - 📷 Visual Representation:
 
 ### (9) Void Run:
-- 💻 Program: [Void Run](VoidRun.py)
+- 💻 Source Code Snapshot: [Void Run](VoidRun.py)
 - 📷 Visual Representation:
 
 ## About Projects of Phase II:
 ### (10) Black Hole:
-- 💻 Program:
+- 💻 Source Code Snapshot:
 - 📷 Visual Representation:
   
 ### (11) Voice Assistant:
-- 💻 Program:
+- 💻 Source Code Snapshot:
 - 📷 Visual Representation:
   
 ### (12) NebulaAI v.1:
-- 💻 Program:
+- 💻 Source Code Snapshot:
 - 📷 Visual Representation:
 
 ### (13) Filer:
-- 💻 Program:
+- 💻 Source Code Snapshot:
 - 📷 Visual Representation;
 
 ### (14) NebulaAI v.2:
-- 💻 Program:
+- 💻 Source Code Snapshot:
 - 📷 Visual Representation:
 
 ### (15) The One:
-- 💻 Program:
+- 💻 Source Code Snapshot:
 - 📷 Visual Representation:
 
 ### (16) Friday 13 – III:
-- 💻 Program:
+- 💻 Source Code Snapshot:
 - 📷 Visual Representation:
 
 ## About NebulaStack.

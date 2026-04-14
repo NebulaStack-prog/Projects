@@ -20,17 +20,17 @@ This repository contains the official NS's projects.
 - Image 5: [Picture 5](PictureCalc_2_5.png)
 
 ### (4) Friday 13 – II:
-- 💻 Fool File: [Friday 13 - II](Friday13_II.c3p)
+- 💻 Full File: [Friday 13 - II](Friday13_II.c3p)
 - 📷 Image:
 
 ### (5) Diving Cats:
-- 💻 Fool File: [Diving Cats](DiverGame.c3p)
+- 💻 Full File: [Diving Cats](DiverGame.c3p)
 - 📷 Image 1: [Picture 1](PictureDive1.png)
 - Image 2: [Picture 2](PictureDive2.png)
 - Image 3: [Picture 3](PictureDive3.png)
 
 ### (6) Hunter Mike:
-- 💻 Fool File: [Hunter Mike](HunterMike.c3p)
+- 💻 Full File: [Hunter Mike](HunterMike.c3p)
 - 📷 Image:
 
 ### (7) Tetris:

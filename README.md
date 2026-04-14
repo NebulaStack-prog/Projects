@@ -8,7 +8,7 @@ This repository contains the official NS's projects.
 - Image 2: [Picture 2](PICTURE_3.png)
 
 ### (2) Friday 13 – I:
-- 💻 Full File: [Friday 13 ‐ I](Friday13_I_.c3p)
+- 💻 Complete Project Bundle: [Friday 13 ‐ I](Friday13_I_.c3p)
 - 📷 Visual Representation: [Picture](Picture_2.jpg)
 
 ### (3) Calculator v.2:
@@ -20,17 +20,17 @@ This repository contains the official NS's projects.
 - Image 5: [Picture 5](PictureCalc_2_5.png)
 
 ### (4) Friday 13 – II:
-- 💻 Full File: [Friday 13 - II](Friday13_II.c3p)
+- 💻 Complete Project Bundle: [Friday 13 - II](Friday13_II.c3p)
 - 📷 Visual Representation:
 
 ### (5) Diving Cats:
-- 💻 Full File: [Diving Cats](DiverGame.c3p)
+- 💻 Complete Project Bundle: [Diving Cats](DiverGame.c3p)
 - 📷 Visual Representation: [Picture 1](PictureDive1.png)
 - Image 2: [Picture 2](PictureDive2.png)
 - Image 3: [Picture 3](PictureDive3.png)
 
 ### (6) Hunter Mike:
-- 💻 Full File: [Hunter Mike](HunterMike.c3p)
+- 💻 Complete Project Bundle: [Hunter Mike](HunterMike.c3p)
 - 📷 Visual Representation:
 
 ### (7) Tetris:
@@ -67,11 +67,11 @@ This repository contains the official NS's projects.
 - 📷 Visual Representation:
 
 ### (15) The One:
-- 💻 Source Code Snapshot:
+- 💻 Complete Project Bundle:
 - 📷 Visual Representation:
 
 ### (16) Friday 13 – III:
-- 💻 Source Code Snapshot:
+- 💻 Complete Project Bundle:
 - 📷 Visual Representation:
 
 ## About NebulaStack.

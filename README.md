@@ -8,7 +8,7 @@ This repository contains the official NS's projects.
 - Image 2: [Picture 2](PICTURE_3.png)
 
 ### (2) Friday 13 – I:
-- 💻 Fool File: [Friday 13 ‐ I](Friday13_I_.c3p)
+- 💻 Full File: [Friday 13 ‐ I](Friday13_I_.c3p)
 - 📷 Image: [Picture](Picture_2.jpg)
 
 ### (3) Calculator v.2:

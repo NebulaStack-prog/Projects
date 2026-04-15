@@ -91,6 +91,8 @@ def load_best_score():
 def draw_menu():
     screen.fill(pygame.Color(222, 248, 116, 100))
 
+    pygame.draw.rect(screen, (0, 0, 0), (0, 0, screen_x, screen_y), 10)
+
     title_text = menu_font.render("TETRIS", True, (0, 0, 0))
     title_rect = title_text.get_rect(center=(screen_x // 2, screen_y // 2 - 100))
     screen.blit(title_text, title_rect)
@@ -114,10 +116,13 @@ def draw_menu():
 def draw_cell(x, y, cell_color):
     rect = pygame.Rect(x, y + 50, cell_x, cell_y)
     pygame.draw.rect(screen, cell_color, rect)
+    pygame.draw.rect(screen, (255, 255, 255), rect, 3)
     pygame.draw.rect(screen, (0, 0, 0), rect, 1)
 
 def draw_help():
     screen.fill(pygame.Color(222, 248, 116, 100))
+
+    pygame.draw.rect(screen, (0, 0, 0), (0, 0, screen_x, screen_y), 10)
 
     title_text = menu_font.render("HOW TO PLAY", True, (0, 0, 0))
     title_rect = title_text.get_rect(center=(screen_x // 2, 50))
@@ -176,7 +181,7 @@ def reset_game():
     for i in range(columns):
         for j in range(strings):
             grid[i][j][0] = 1
-            grid[i][j][2] = pygame.Color("Gray")
+            grid[i][j][2] = pygame.Color(0, 0, 0)
 
     score = 0
 
@@ -196,7 +201,7 @@ for i in range(columns):
 for i in range(columns):
     for j in range(strings):
         grid[i][j].append(pygame.Rect(i * cell_x, j * cell_y, cell_x, cell_y))
-        grid[i][j].append(pygame.Color("Gray"))
+        grid[i][j].append(pygame.Color(0, 0, 0))
 
 details = [
     [[-2, 0], [-1, 0], [0, 0], [1, 0]],
@@ -299,15 +304,21 @@ while game:
         if key[pygame.K_DOWN]:
             count = 31 * fps
 
-        screen.fill(pygame.Color(222, 248, 116, 100))
+        screen.fill((0, 0, 0))
+
+        small_size = cell_x // 3
+        offset = (cell_x - small_size) // 2
 
         for i in range(columns):
             for j in range(strings):
                 if grid[i][j][0] == 0:
-                    draw_cell(grid[i][j][1].x, grid[i][j][1].y, grid[i][j][2])
-                else:
                     rect = pygame.Rect(grid[i][j][1].x, grid[i][j][1].y + 50, cell_x, cell_y)
-                    pygame.draw.rect(screen, grid[i][j][2], rect, 1)
+                    pygame.draw.rect(screen, grid[i][j][2], rect)
+                    pygame.draw.rect(screen, (255, 255, 255), rect, 3)
+                    pygame.draw.rect(screen, (0, 0, 0), rect, 1)
+                else:
+                    small_rect = pygame.Rect(grid[i][j][1].x + offset, grid[i][j][1].y + offset + 50, small_size, small_size)
+                    pygame.draw.rect(screen, (80, 80, 80), small_rect)
 
         if state != "game":
             continue

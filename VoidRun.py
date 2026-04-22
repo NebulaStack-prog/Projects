@@ -4,8 +4,6 @@ import tcod
 import random
 from enum import Enum
 
-from pygame._sdl2.video import Renderer
-
 
 class Direction(Enum):
     LEFT = 0

@@ -9,7 +9,7 @@ class Direction(Enum):
     LEFT = 0
     UP = 1
     RIGHT = 2
-    DOWN = 3,
+    DOWN = 3
     NONE = 4
 
 def translate_screen_to_maze(in_coords, in_size=20):
@@ -74,13 +74,16 @@ class GameRenderer:
         self._gate_walls = []
         self._gate_opened = False
         self._score = 0
+        self._hp = 3
+        self.invincible = False
+        self.invincible_timer = 0
         self._font = pygame.font.SysFont("Arial", 24, bold=True)
 
     def tick(self, in_fps: int):
         black = (0, 0, 0)
         while not self._done:
 
-            if not self._gate_opened and self._score >= 5:
+            if not self._gate_opened and self._score >= 50:
 
                 for wall in self._gate_walls:
                     if wall in self._game_objects:
@@ -88,22 +91,11 @@ class GameRenderer:
                     if wall in self._walls:
                         self._walls.remove(wall)
 
-                for obj in self._game_objects:
-                    if isinstance(obj, Ghost):
-                        start = translate_screen_to_maze(obj.get_position())
-                        end = self.game_controller.exit_point
-
-                        path = self.game_controller.p.get_path(
-                            start[0], start[1],
-                            end[0], end[1]
-                        )
-
-                        path = [translate_maze_to_screen(p) for p in path]
-
-                        obj.set_new_path(path)
-
                 self._gate_opened = True
 
+            if self._score >= 318:
+                self.show_you_win()
+                break
 
             for game_object in self._game_objects:
                 game_object.tick()
@@ -112,11 +104,44 @@ class GameRenderer:
             score_surface = self._font.render(f"Score: {self._score} / 318", True, (255, 255, 255))
             self._screen.blit(score_surface, (206, 125))
 
+            hp_surface = self._font.render(f"HP: {self._hp}", True, (255, 255, 255))
+            self._screen.blit(hp_surface, (35, 215))
+
             pygame.display.flip()
             self._clock.tick(in_fps)
             self._screen.fill(black)
             self._handle_events()
         print("Game over")
+
+    def show_game_over(self):
+        font_large = pygame.font.SysFont("Arial", 72, bold=True)
+        game_over_text = font_large.render("GAME OVER", True, (255, 0, 0))
+        text_rect = game_over_text.get_rect(center=(self._width // 2, self._height // 2))
+        self._screen.blit(game_over_text, text_rect)
+        pygame.display.flip()
+        pygame.time.wait(3000)
+        self._done = True
+
+    def show_you_win(self):
+        font_large = pygame.font.SysFont("Arial", 72, bold=True)
+        you_win_text = font_large.render("YOU WIN!", True, (0, 255, 0))
+        text_rect = you_win_text.get_rect(center=(self._width // 2, self._height // 2))
+        self._screen.blit(you_win_text, text_rect)
+        pygame.display.flip()
+        pygame.time.wait(3000)
+        self._done = True
+
+    def damage_player(self):
+        if self._hero and self._hero.invincible:
+            return
+
+        self._hp -= 1
+        print(f"HP: {self._hp}")
+        if self._hp <= 0:
+            self.show_game_over()
+
+    def get_hp(self):
+        return self._hp
 
     def add_game_object(self, obj: GameObject):
         self._game_objects.append(obj)
@@ -215,8 +240,33 @@ class Hero(MovableObject):
     def __init__(self, in_surface, x, y, in_size: int):
         super().__init__(in_surface, x, y, in_size, (255, 255, 0), False)
         self.last_non_colliding_position = (0, 0)
+        self._hp = 3
+        self.invincible = False
+        self.invincible_timer = 0
+
+    def check_ghost_collision(self):
+        if self.invincible:
+            return
+
+        hero_rect = pygame.Rect(self.x, self.y, self._size, self._size)
+
+        for obj in self._renderer.get_game_objects():
+            if isinstance(obj, Ghost):
+                ghost_rect = pygame.Rect(obj.x, obj.y, obj._size, obj._size)
+
+                if hero_rect.colliderect(ghost_rect):
+                    self._renderer.damage_player()
+
+                    self.invincible = True
+                    self.invincible_timer = 180
+                    return
 
     def tick(self):
+
+        if self.invincible:
+            self.invincible_timer -= 1
+            if self.invincible_timer <= 0:
+                self.invincible = False
 
         if self.x < 0:
             self.x = self._renderer._width
@@ -236,6 +286,7 @@ class Hero(MovableObject):
             self.set_position(self.last_non_colliding_position[0], self.last_non_colliding_position[1])
 
         self.handle_cookie_pickup()
+        self.check_ghost_collision()
 
     def automatic_move(self, in_direction: Direction):
         collision_result = self.check_collision_in_direction(in_direction)
@@ -260,7 +311,45 @@ class Hero(MovableObject):
 
     def draw(self):
         half_size = self._size / 2
-        pygame.draw.circle(self._surface, self._color, (self.x + half_size, self.y + half_size), half_size)
+        center_x = self.x + half_size
+        center_y = self.y + half_size
+        radius = half_size
+
+        pygame.draw.circle(self._surface, self._color, (int(center_x), int(center_y)), int(radius))
+
+        mouth_points = []
+        if self.current_direction == Direction.RIGHT:
+            mouth_points = [
+                (center_x, center_y),
+                (center_x + radius, center_y - radius * 0.7),
+                (center_x + radius, center_y + radius * 0.7)
+            ]
+        elif self.current_direction == Direction.LEFT:
+            mouth_points = [
+                (center_x, center_y),
+                (center_x - radius, center_y - radius * 0.7),
+                (center_x - radius, center_y + radius * 0.7)
+            ]
+        elif self.current_direction == Direction.UP:
+            mouth_points = [
+                (center_x, center_y),
+                (center_x - radius * 0.7, center_y - radius),
+                (center_x + radius * 0.7, center_y - radius)
+            ]
+        elif self.current_direction == Direction.DOWN:
+            mouth_points = [
+                (center_x, center_y),
+                (center_x - radius * 0.7, center_y + radius),
+                (center_x + radius * 0.7, center_y + radius)
+            ]
+        else:
+            mouth_points = [
+                (center_x, center_y),
+                (center_x + radius, center_y - radius * 0.7),
+                (center_x + radius, center_y + radius * 0.7)
+            ]
+
+        pygame.draw.polygon(self._surface, (0, 0, 0), mouth_points)
 
 
 class Ghost(MovableObject):
@@ -361,7 +450,7 @@ class PacmanGameController:
         self.size = (0, 0)
         self.convert_maze_to_numpy()
         self.p = Pathfinder(self.numpy_maze)
-        self.exit_point = (14, 11)
+        # self.exit_point = (14, 11)
 
     def request_new_random_path(self, in_ghost: Ghost):
         random_space = random.choice(self.reachable_spaces)
